@@ -1,0 +1,24 @@
+{
+  "name": "wjl-personal-blog",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "WJL 个人博客 — AI Agent · 数据可视化 · 全栈开发",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "katex": "^0.18.11",
+    "marked": "^18.1.1",
+    "marked-katex-extension": "^5.1.13",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^5.4.11"
+  }
+}
