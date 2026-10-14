@@ -506,6 +506,78 @@ export const projects = [{
             { file: 'jifen36.md', label: '积分商城 jifen36 · README' },
             { file: 'yanxuan.md', label: '严选小程序 yanxuan · README' }
         ]
+    },
+    {
+        id: 'haute-gsap-skills',
+        index: '08',
+        featured: false,
+        visual: 'v2',
+        icon: 'spark',
+        name: 'Haute · 高端 GSAP Skills',
+        en: 'AI AGENT SKILL',
+        year: '2026',
+        tagline: '开源 AI Agent 技能：教 Claude Code / Cursor 等 40+ 编码代理写出 Awwwards 级高端网站',
+        desc: '6 大风格体系 + 12 动效模式 + 呼吸感节奏律 B1–B6 + 实战 GSAP3/Lenis 配方 + 引擎纪律与交付质检 —— 把「高级感」变成可复制的系统。',
+        hero: 'shots/haute-gsap-skills/01-banner.jpg',
+        overview: [
+            'Haute 是我把本站（你现在看到的这个博客）的开发方法逆向沉淀而成的开源 AI Agent 技能：以 SKILL.md 为入口，教 Claude Code、Cursor、Copilot 等 40+ 编码代理理解并执行「高级感」—— 克制的美术方向 × 排版功底 × 节奏化动效 × 工程纪律。命名 Haute 取自法语「高级」，slug haute-gsap-skills 与官方 greensock/gsap-skills 形成对照。',
+            '技能内置 6 大经过验证的风格体系（Nocturne 暗黑奢华 / Swiss Mono 瑞士极简 / Editorial 杂志编辑 / Technical Brutalist 技术粗野 / Warm Humanist 温暖人文 / Immersive 3D 沉浸式）、12 个动效模式与呼吸感节奏律 B1–B6（动-静交替、近空屏、一屏一信息点、宁慢勿快）、12+ 个可直接移植的 GSAP3/Lenis/Vue3 实战配方（含零依赖 CJK 拆字器与手写语法高亮器）、从官方 GSAP skills 蒸馏出的 10 节引擎纪律，以及完整的三重降级与交付质检协议。'
+        ],
+        role: '独立创作 · 设计体系 / 配方沉淀 / 开源发布',
+        period: '2026.10',
+        status: '已开源 · MIT · v1.3.0',
+        archDesc: [
+            '技能结构：SKILL.md 九条核心原则 + 六步工作流 + 红线 + 验收协议；references/ 五份长文档（style-systems / motion-patterns / recipes / gsap-engine / implementation）；assets/ 提供自包含单文件模板 template.html 与 6 套即贴 CSS 变量包 style-packs.css。',
+            '分发矩阵：目录名与 frontmatter name 严格一致以兼容 npx skills add（40+ agent 通用）；附带 .claude-plugin 与 .cursor-plugin 插件市场配置、.github/copilot-instructions 指引与 llms.txt agent 索引，四条安装路径全部打通。'
+        ],
+        stackGroups: [
+            { group: '动效引擎', items: ['GSAP 3', 'ScrollTrigger', 'Lenis', 'Pin 长卷'] },
+            { group: '技能形态', items: ['SKILL.md 入口', '5 份 references', '单文件模板', 'llms.txt 索引'] },
+            { group: '分发', items: ['skills CLI', 'Claude 插件', 'Cursor 规则', 'Copilot 指引'] },
+            { group: '语言与合规', items: ['中英双语', '触发词路由', 'MIT License', '零额外依赖'] }
+        ],
+        features: [
+            { title: '6 大风格体系', desc: '每套含精确色彩 token、字体对与排版规则，另有即贴 CSS 变量包，选型即落地，全站禁止混搭。' },
+            { title: '12 动效模式 + B1–B6 呼吸感节奏律', desc: 'Preloader、行揭示、clip-path、无缝 marquee、磁吸、pin 长卷、速度感应字幕、打字机等，参数全部有默认值，禁止凭空发明。' },
+            { title: '12+ 实战配方', desc: 'Lenis 集成、双向可逆入场、滚动叙事退场、零依赖 CJK 拆字器、打字机 + 手写高亮器（tokenize / sliceHtml）、路由清理纪律，全部可整段复制。' },
+            { title: '10 节引擎纪律', desc: '蒸馏自 GSAP 官方 AI skills：autoAlpha / immediateRender / overwrite 陷阱、scrub vs toggleActions、gsap.context 生命周期、matchMedia 降级、60fps 红线与零警告自检。' },
+            { title: '中文场景适配', desc: 'splitToCJKChars 保留子元素不破坏阅读顺序；中文标题字距只收 -0.01em~0；Noto 系列按最小字重加载控制字体体积。' },
+            { title: '四路分发', desc: 'skills CLI / Claude 插件市场 / Cursor 规则 / Copilot 指引，目录名、license、双语描述与触发词全部合规。' }
+        ],
+        effects: [
+            { title: '已开源上线', desc: 'GitHub @WJLGraph/haute-gsap-skills，MIT 协议，README 全量渲染正常。' },
+            { title: '参考实现即本站', desc: '博客本身就是按该技能工作流构建的真实站点，用于校准 agent 输出质量基线。' },
+            { title: '合规可分发', desc: '规范校验通过：目录名 = frontmatter name、description < 1024 字符、4 份插件 JSON 有效。' },
+            { title: '零依赖哲学', desc: '拆字器、高亮器、语法着色全部手写实现，不引入第三方依赖。' }
+        ],
+        problems: [
+            { problem: 'Agent 只会让动画「能动」，不懂为何获奖', solution: '把高级感拆成可执行系统：九条原则 + 六步工作流 + 红线，违反即返工' },
+            { problem: '动效参数凭空发明导致廉价感', solution: '模式库统一默认值（0.9–1.2s 入场、power4.out / expo.out），只允许最小调整' },
+            { problem: 'CJK 拆字破坏行内元素与阅读顺序', solution: 'splitToCJKChars 浅克隆包装子元素，中文与标点原位保留' },
+            { problem: '路由切换后 tween / ScrollTrigger 泄漏', solution: 'gsap.context + revert 生命周期纪律写入引擎文档与验收清单' }
+        ],
+        difficulties: [
+            { title: '把审美译成工程语言', desc: '高级感是主观判断，必须拆解为可检查的条款：近空屏数量、字号阶梯比、动-静交替节奏，才能让 agent 稳定复现。' },
+            { title: '与官方 skills 的蒸馏合并', desc: '通读 GSAP 官方 8 个子技能，保留 API 正确性精华，压缩为 10 节可执行纪律，并与自有美学体系融合而非并列。' },
+            { title: '规范的合规改造', desc: 'agentskills.io 对目录名 / frontmatter / 描述长度有硬约束，中文描述在国际 agent 路由中天然吃亏，最终采用英文优先 + 双语触发词方案。' },
+            { title: '去个人化', desc: '配方最初强绑定本站路径（useGsap.js 等），需把拆字器、高亮器全部内联为自包含实现，任何项目可整段复制。' }
+        ],
+        shots: [
+            { src: 'shots/haute-gsap-skills/01-banner.jpg', caption: 'Haute 仓库 Banner — Nocturne 调性（黑场 × 香槟金细线 × 颗粒）' }
+        ],
+        metrics: [
+            { label: '风格体系', value: '6 套' },
+            { label: '动效模式', value: '12 个' },
+            { label: '引擎纪律', value: '10 节' },
+            { label: '即贴配方', value: '12+' }
+        ],
+        links: [
+            { label: 'GITHUB', type: 'github', url: 'https://github.com/WJLGraph/haute-gsap-skills' },
+            { label: 'LIVE DEMO', type: 'demo', url: 'https://wjl-mine-blog.w200407162022.workers.dev/#/' }
+        ],
+        docs: [
+            { file: 'readme.md', label: 'README · 技能主文档' }
+        ]
     }
 ]
 
@@ -549,5 +621,10 @@ export const timeline = [{
         date: '2026.10 · SECURITY',
         title: 'Agent-Gauntlet · 红队测试',
         desc: '为自己的 Agent 系统打造红队评测平台：5 类攻击（角色扮演 / 指令覆盖 / 目标劫持 / 蜜罐 / 工具返回夹带）+ 混沌故障注入 + 四级防御判定（defense_score 量化），与焰哨 env 门控 chaos 联动，形成「攻击 — 防御 — 修复」安全闭环。'
+    },
+    {
+        date: '2026.10 · OPEN SOURCE',
+        title: 'Haute · 高端 GSAP Skills 开源',
+        desc: '把本站的开发方法沉淀为开源 AI Agent 技能并发布 GitHub：6 大风格体系、12 动效模式 + B1–B6 呼吸感节奏律、12+ 实战配方与 10 节引擎纪律，四路分发（skills CLI / Claude / Cursor / Copilot）全部合规打通，MIT 协议。'
     }
 ]

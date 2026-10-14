@@ -27,6 +27,10 @@ defineProps({
     <circle cx="12" cy="17" r="3" />
     <path d="M9 9.5l1.5 4M15 9.5l-1.5 4M9.8 6.8h4.4" />
   </svg>
+  <svg v-else-if="icon === 'spark'" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(200,169,106,0.9)" stroke-width="1.2">
+    <path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2z" />
+    <circle cx="12" cy="12" r="2.2" />
+  </svg>
   <svg v-else width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,200,110,0.9)" stroke-width="1.2">
     <path d="M5 8h14l-1.5 12h-11L5 8z" />
     <path d="M9 8V6a3 3 0 0 1 6 0v2" />

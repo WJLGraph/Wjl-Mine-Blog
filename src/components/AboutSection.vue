@@ -12,7 +12,7 @@ const skillGroups = [
   },
   {
     title: '前端 / FRONTEND',
-    tags: ['Vue2 · Vue3', 'Vite', 'Pinia', 'Element Plus', 'OpenLayers', 'Turf.js', 'Three.js', 'ECharts', '微信小程序', 'Vant Weapp', 'GSAP 动效']
+    tags: ['Vue2 · Vue3', 'Vite', 'Pinia', 'Element Plus', 'OpenLayers', 'Turf.js', 'Three.js', 'ECharts', '微信小程序', 'Vant Weapp', 'GSAP 动效', 'Lenis 平滑滚动']
   },
   {
     title: '后端 · 工程 / BACKEND',
@@ -20,7 +20,7 @@ const skillGroups = [
   },
   {
     title: 'AI · AGENT',
-    tags: ['LangChain / LangGraph', 'LLM Agent 编排', 'Prompt 工程', 'RAG 知识库', 'HITL 人工审批', 'Agent 红队测试', '混沌注入', 'MCP 协议', 'Langfuse 观测', 'OpenAI / DashScope']
+    tags: ['LangChain / LangGraph', 'LLM Agent 编排', 'Agent Skill 设计（Haute）', 'Prompt 工程', 'RAG 知识库', 'HITL 人工审批', 'Agent 红队测试', '混沌注入', 'MCP 协议', 'Langfuse 观测', 'OpenAI / DashScope']
   },
   {
     title: '算法 · 数据 / ALGORITHM',
