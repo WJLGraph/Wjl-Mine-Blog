@@ -20,6 +20,23 @@ onMounted(() => {
   const el = rootEl.value?.$el || rootEl.value
 
   ctx = gsap.context(() => {
+    // 图片 clip-path 擦亮式入场：容器 inset 揭示 + 内图 scale 反差，双向可逆
+    const visual = el.querySelector('.card-visual')
+    const img = el.querySelector('.v-shot')
+    if (visual && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(visual, { clipPath: 'inset(100% 0 0 0)' })
+      if (img) gsap.set(img, { scale: 1.25, transition: 'none' })
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: el, start: 'top 78%', toggleActions: 'play none none reverse' },
+        onComplete: () => {
+          // 归还 transform/transition 控制权给 CSS :hover，避免两个动画源打架
+          if (img) gsap.set(img, { clearProps: 'transform,transition' })
+        }
+      })
+      tl.to(visual, { clipPath: 'inset(0% 0 0 0)', duration: 1.1, ease: 'power3.inOut' })
+      if (img) tl.to(img, { scale: 1, duration: 1.3, ease: 'power3.out' }, '<0.1')
+    }
+
     const rotX = gsap.quickTo(el, 'rotationX', { duration: 0.5, ease: 'power2.out' })
     const rotY = gsap.quickTo(el, 'rotationY', { duration: 0.5, ease: 'power2.out' })
     gsap.set(el, { transformPerspective: 1000 })

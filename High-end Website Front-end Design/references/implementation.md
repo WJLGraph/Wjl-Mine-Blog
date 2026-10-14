@@ -37,6 +37,8 @@
 - **字体加载后再切分文字**：监听 `document.fonts.ready`，否则 SplitType 按错误度量切行
 - Lenis 在 SPA 中要挂在布局层而非页面组件，路由切换时 `lenis.scrollTo(0, { immediate: true })`
 
+更细粒度的清理纪律（gsap.context + 回调中创建的 tween 手动 kill）与 12 个即用配方见 `recipes.md` §10。
+
 ### 推荐栈
 
 - Vite + Vue3/React + GSAP + Lenis + SplitType（与单文件同一套库，迁移零成本）
@@ -88,6 +90,7 @@
 - [ ] 所有 easing 来自约定清单，无 linear
 - [ ] 同时入场元素统一 timeline + stagger
 - [ ] resize 后文字切分正确（拉动窗口宽度验证）
+- [ ] 每处滚动效果上滚可逆（scrub 天然可逆；补间加 `toggleActions: 'play none none reverse'`）
 
 **降级与移动端**
 - [ ] `prefers-reduced-motion` 模拟下内容完整可见
