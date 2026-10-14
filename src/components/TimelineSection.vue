@@ -4,7 +4,7 @@ import { timeline } from '../data/projects'
 
 <template>
   <section id="timeline">
-    <div class="sec-label">03 — 成长轨迹 / TIMELINE</div>
+    <div class="sec-label">04 — 成长轨迹 / TIMELINE</div>
     <div class="sec-title"><span class="en">EVOLUTION</span>从页面到智能体。</div>
 
     <div class="timeline">

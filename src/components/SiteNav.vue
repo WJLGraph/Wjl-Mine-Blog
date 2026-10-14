@@ -26,6 +26,7 @@ function scrollTo(id) {
     <router-link to="/" class="logo">WJL<span class="logo-sub">©26</span></router-link>
     <div class="links">
       <button @click="goSection('about')">关于</button>
+      <button @click="goSection('codelab')">代码</button>
       <button @click="goSection('projects')">项目</button>
       <button @click="goSection('timeline')">轨迹</button>
       <button @click="goSection('contact')">联系</button>
@@ -117,6 +118,16 @@ nav {
   }
   .links {
     gap: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .links {
+    gap: 13px;
+  }
+  .links button {
+    font-size: 10px;
+    letter-spacing: 1.5px;
   }
 }
 </style>

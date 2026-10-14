@@ -21,7 +21,7 @@ const links = [
 
 <template>
   <section id="contact" class="contact">
-    <div class="sec-label center">04 — 联系 / CONTACT</div>
+    <div class="sec-label center">05 — 联系 / CONTACT</div>
     <div class="contact-big reveal">
       LET'S BUILD
       <span class="outline">SOMETHING GREAT</span>

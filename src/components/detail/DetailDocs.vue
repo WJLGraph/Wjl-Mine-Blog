@@ -6,6 +6,7 @@
  */
 import { ref, computed, watch, nextTick, onBeforeUnmount } from 'vue'
 import { marked } from 'marked'
+import { highlightCode } from '../../composables/useCodeHighlight'
 import markedKatex from 'marked-katex-extension'
 import { gsap } from '../../composables/useGsap'
 import 'katex/dist/katex.min.css'
@@ -138,7 +139,30 @@ async function load() {
         }
       }
     })
-    const parsed = marked.parse(md).replace(/<img /g, '<img loading="lazy" ')
+    // python / javascript 代码块套用手写高亮器（bash/sql/yaml 等原样保留）
+    const unescapeHtml = (s) =>
+      s
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, '&')
+    const parsed = marked
+      .parse(md)
+      .replace(/<img /g, '<img loading="lazy" ')
+      .replace(
+        /<pre><code(?: class="language-([\w#+-]+)")?>([\s\S]*?)<\/code><\/pre>/g,
+        (m, lang, body) => {
+          const norm = (lang || 'python').toLowerCase()
+          const mapped = norm.startsWith('py')
+            ? 'python'
+            : /^(js|javascript|jsx|ts|tsx)$/.test(norm)
+              ? 'javascript'
+              : null
+          if (!mapped) return m
+          return `<pre><code class="language-${norm}">${highlightCode(unescapeHtml(body), mapped)}</code></pre>`
+        }
+      )
     if (seq !== loadSeq) return
     html.value = parsed
   } catch {

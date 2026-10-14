@@ -861,6 +861,38 @@ html.light .effect-card:hover {
 }
 
 
+/* ── 代码高亮 token（CodeLab 窗口与文档 pre 共用，基于现有成对令牌自动适配双主题） ── */
+
+.tk-cmt {
+    color: var(--ink-faint);
+    font-style: italic;
+}
+
+.tk-str {
+    color: var(--accent-2);
+}
+
+.tk-kw {
+    color: var(--accent);
+}
+
+.tk-dec {
+    color: var(--accent-2);
+}
+
+.tk-num {
+    color: var(--accent-2);
+}
+
+.tk-fn {
+    color: var(--ink);
+}
+
+.tk-pun {
+    color: var(--ink-dim);
+}
+
+
 /* ── 响应式 ── */
 
 @media (max-width: 900px) {

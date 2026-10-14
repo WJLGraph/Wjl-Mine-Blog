@@ -1,13 +1,15 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import { gsap } from '../composables/useGsap'
+import { gsap, ScrollTrigger } from '../composables/useGsap'
 import { projects } from '../data/projects'
 import HeroSection from '../components/HeroSection.vue'
 import MarqueeBar from '../components/MarqueeBar.vue'
 import AboutSection from '../components/AboutSection.vue'
+import CodeLabSection from '../components/CodeLabSection.vue'
 import ProjectCard from '../components/ProjectCard.vue'
 import TimelineSection from '../components/TimelineSection.vue'
 import ContactSection from '../components/ContactSection.vue'
+import { scrambleIn } from '../composables/useScramble'
 
 const rootEl = ref(null)
 let ctx = null
@@ -27,8 +29,8 @@ onMounted(async () => {
       })
     })
 
-    // 区块标题入场
-    gsap.utils.toArray('.sec-label, .sec-title', rootEl.value).forEach((el) => {
+    // 区块大标题：保留滑入
+    gsap.utils.toArray('.sec-title', rootEl.value).forEach((el) => {
       gsap.from(el, {
         scrollTrigger: { trigger: el, start: 'top 90%' },
         x: -36,
@@ -36,6 +38,25 @@ onMounted(async () => {
         duration: 1,
         ease: 'expo.out'
       })
+    })
+
+    // 区块小标签：淡入 + 解码乱码（只触发一次）
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    gsap.utils.toArray('.sec-label', rootEl.value).forEach((el) => {
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 90%' },
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power2.out'
+      })
+      if (!reducedMotion) {
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 90%',
+          once: true,
+          onEnter: () => scrambleIn(el)
+        })
+      }
     })
   }, rootEl.value)
 })
@@ -53,9 +74,12 @@ onBeforeUnmount(() => {
     <!-- ABOUT -->
     <AboutSection />
 
+    <!-- CODE LAB -->
+    <CodeLabSection />
+
     <!-- PROJECTS -->
     <section id="projects">
-      <div class="sec-label">02 — 精选项目 / PROJECTS</div>
+      <div class="sec-label">03 — 精选项目 / PROJECTS</div>
       <div class="sec-title"><span class="en">SELECTED WORKS</span>每一个项目，都是一次系统性的抵达。</div>
 
       <div class="projects-grid">
