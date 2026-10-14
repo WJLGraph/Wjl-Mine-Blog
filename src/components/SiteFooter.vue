@@ -1,6 +1,6 @@
 <template>
   <footer>
-    <div>© 2026 WJL — CRAFTED WITH VUE & GSAP</div>
+    <div>© 2026 WJLGraph — CRAFTED WITH VUE & GSAP</div>
     <div>DATA FROM GITHUB / GITEE PUBLIC REPOS</div>
   </footer>
 </template>

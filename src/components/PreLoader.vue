@@ -33,7 +33,7 @@ onMounted(() => {
 
 <template>
   <div ref="rootEl" class="preloader">
-    <div class="pl-name">WJL · PORTFOLIO</div>
+    <div class="pl-name">WJLGRAPH · PORTFOLIO</div>
     <div class="pl-count">{{ count }}</div>
     <div class="pl-bar"><i></i></div>
   </div>

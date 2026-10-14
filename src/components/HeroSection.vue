@@ -93,7 +93,7 @@ onBeforeUnmount(() => {
     <div class="floating-shape" id="shape3"></div>
 
     <div class="hero-content">
-      <p class="hero-eyebrow">WJL — PERSONAL DIGITAL SPACE / 个人数字空间</p>
+      <p class="hero-eyebrow">WJLGRAPH — PERSONAL DIGITAL SPACE / 个人数字空间</p>
       <h1 id="main-title">
         <span class="line solid">CREATIVE</span>
         <span class="line outline">DEVELOPER</span>

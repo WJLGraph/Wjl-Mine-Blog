@@ -19,7 +19,7 @@ function goSection(id) {
 
 <template>
   <nav>
-    <router-link to="/" class="logo">WJL<span class="logo-sub">©26</span></router-link>
+    <router-link to="/" class="logo">WJLGraph<span class="logo-sub">©26</span></router-link>
     <div class="links">
       <button @click="goSection('about')">关于</button>
       <button @click="goSection('codelab')">代码</button>

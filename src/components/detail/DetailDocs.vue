@@ -210,8 +210,9 @@ onBeforeUnmount(() => {
     <div class="d-section docs-section">
       <div class="ds-label mono">项目文档 / DOCS · {{ docList.length }} 份</div>
       <div class="docs-layout">
-        <!-- 文档主体：自带与页面风格一致的右侧滚动条 -->
-        <article ref="bodyEl" class="docs-main md-scroll" @scroll="onScroll" @click="onBodyClick">
+        <!-- 文档主体：自带与页面风格一致的右侧滚动条
+             data-lenis-prevent：Lenis 全局接管了滚轮，必须放行此内部滚动容器，否则滚轮无法滚动文档 -->
+        <article ref="bodyEl" class="docs-main md-scroll" data-lenis-prevent @scroll="onScroll" @click="onBodyClick">
           <div v-if="loading" class="md-state mono">加载中 …</div>
           <div v-else-if="failed" class="md-state mono">文档加载失败 — 请稍后重试</div>
           <!-- eslint-disable-next-line vue/no-v-html -->
@@ -232,7 +233,7 @@ onBeforeUnmount(() => {
           </div>
           <div v-if="headings.length" class="side-block">
             <div class="side-title mono">目录 · ON THIS PAGE</div>
-            <div class="side-toc">
+            <div class="side-toc" data-lenis-prevent>
               <button
                 v-for="h in headings"
                 :key="h.id"
@@ -263,6 +264,7 @@ onBeforeUnmount(() => {
   position: relative;
   max-height: calc(100vh - 210px);
   overflow-y: auto;
+  overscroll-behavior: contain; /* 滚到边界不连带页面滚动 */
   border: 1px solid var(--line);
   background: var(--glass);
   backdrop-filter: blur(8px);

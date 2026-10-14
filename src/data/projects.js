@@ -1,5 +1,5 @@
 /**
- * 精选项目数据 — 来源：GitHub @wjl-cong / Gitee @wjl2004 公开仓库
+ * 精选项目数据 — 来源：GitHub @WJLGraph / Gitee @WJLGraph 公开仓库
  * 及本地仓库 README / docs / 源码调研（e:\agent-gauntlet、e:\Yunnan_fire_agent\*）
  * 每个对象同时驱动首页卡片与项目详情页
  */
@@ -72,9 +72,9 @@ export const projects = [{
         ],
         metrics: [],
         links: [
-            { label: 'GITHUB', type: 'github', url: 'https://github.com/wjl-cong/fire_agent' },
-            { label: 'GITEE · FRONT', type: 'gitee', url: 'https://gitee.com/wjl2004/fire_agent_front' },
-            { label: 'GITEE · BACK', type: 'gitee', url: 'https://gitee.com/wjl2004/fire_agent_back' }
+            { label: 'GITHUB', type: 'github', url: 'https://github.com/WJLGraph/fire_agent' },
+            { label: 'GITEE · FRONT', type: 'gitee', url: 'https://gitee.com/WJLGraph/fire_agent_front' },
+            { label: 'GITEE · BACK', type: 'gitee', url: 'https://gitee.com/WJLGraph/fire_agent_back' }
         ],
         docs: [
             { file: 'implementation.md', label: '整体实现 · 全栈文档' },
@@ -150,8 +150,8 @@ export const projects = [{
         ],
         metrics: [],
         links: [
-            { label: 'GITHUB', type: 'github', url: 'https://github.com/wjl-cong/Agent-Gauntlet' },
-            { label: 'GITEE', type: 'gitee', url: 'https://gitee.com/wjl2004/agent-gauntlet' }
+            { label: 'GITHUB', type: 'github', url: 'https://github.com/WJLGraph/Agent-Gauntlet' },
+            { label: 'GITEE', type: 'gitee', url: 'https://gitee.com/WJLGraph/agent-gauntlet' }
         ],
         docs: [
             { file: 'readme.md', label: 'README · 项目主文档' },
@@ -224,7 +224,7 @@ export const projects = [{
             { src: 'shots/yunnan-fire-map/06-measure.png', caption: '测量距离工具' }
         ],
         metrics: [],
-        links: [{ label: 'GITEE', type: 'gitee', url: 'https://gitee.com/wjl2004/Fire_hazard_Yunnan_system' }],
+        links: [{ label: 'GITEE', type: 'gitee', url: 'https://gitee.com/WJLGraph/Fire_hazard_Yunnan_system' }],
         docs: [{ file: 'readme.md', label: 'README · 大屏主文档' }]
     },
     {
@@ -286,7 +286,7 @@ export const projects = [{
             { label: 'NDVI R² · 测试', value: '0.801' },
             { label: 'FE 分项指数', value: '5 项' }
         ],
-        links: [{ label: 'GITHUB', type: 'github', url: 'https://github.com/wjl-cong/Chongqing_fire' }],
+        links: [{ label: 'GITHUB', type: 'github', url: 'https://github.com/WJLGraph/Chongqing_fire' }],
         docs: [{ file: 'readme.md', label: 'README · 建模平台主文档' }]
     },
     {
@@ -349,7 +349,7 @@ export const projects = [{
             { label: 'R² · 测试集（30 轮）', value: '0.45' },
             { label: '预测步长', value: '24h' }
         ],
-        links: [{ label: 'GITHUB（含原始效果图）', type: 'github', url: 'https://github.com/wjl-cong/informer-' }],
+        links: [{ label: 'GITHUB（含原始效果图）', type: 'github', url: 'https://github.com/WJLGraph/informer-' }],
         docs: [{ file: 'readme.md', label: 'README · 复现笔记' }]
     },
     {
@@ -430,8 +430,8 @@ export const projects = [{
             { label: '覆盖率', value: '1.0' }
         ],
         links: [
-            { label: 'GITHUB · 算法', type: 'github', url: 'https://github.com/wjl-cong/Collaborative_-Filtering' },
-            { label: 'GITHUB · 臻享云牧', type: 'github', url: 'https://github.com/wjl-cong/Cloud_Farming_Platform' }
+            { label: 'GITHUB · 算法', type: 'github', url: 'https://github.com/WJLGraph/Collaborative_-Filtering' },
+            { label: 'GITHUB · 臻享云牧', type: 'github', url: 'https://github.com/WJLGraph/Cloud_Farming_Platform' }
         ],
         docs: [
             { file: 'readme.md', label: 'README · 协同过滤算法' },
@@ -499,8 +499,8 @@ export const projects = [{
         ],
         metrics: [],
         links: [
-            { label: '积分商城 · GITEE', type: 'gitee', url: 'https://gitee.com/wjl2004/jifen36' },
-            { label: '严选小程序 · GITEE', type: 'gitee', url: 'https://gitee.com/wjl2004/yanxuan' }
+            { label: '积分商城 · GITEE', type: 'gitee', url: 'https://gitee.com/WJLGraph/jifen36' },
+            { label: '严选小程序 · GITEE', type: 'gitee', url: 'https://gitee.com/WJLGraph/yanxuan' }
         ],
         docs: [
             { file: 'jifen36.md', label: '积分商城 jifen36 · README' },

@@ -21,16 +21,16 @@ onBeforeUnmount(() => {
 const links = [
   {
     name: 'GITHUB',
-    id: '@wjl-cong',
+    id: '@WJLGraph',
     type: 'github',
-    url: 'https://github.com/wjl-cong',
+    url: 'https://github.com/WJLGraph',
     avatar: 'avatars/github.png'
   },
   {
     name: 'GITEE',
-    id: '@wjl2004',
+    id: '@WJLGraph',
     type: 'gitee',
-    url: 'https://gitee.com/wjl2004',
+    url: 'https://gitee.com/WJLGraph',
     avatar: 'avatars/gitee.png'
   }
 ]

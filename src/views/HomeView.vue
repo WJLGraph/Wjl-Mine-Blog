@@ -110,10 +110,10 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="projects-more reveal">
-        <a class="btn-ghost" href="https://github.com/wjl-cong?tab=repositories" target="_blank" rel="noopener">
+        <a class="btn-ghost" href="https://github.com/WJLGraph?tab=repositories" target="_blank" rel="noopener">
           查看全部 · GITHUB →
         </a>
-        <a class="btn-ghost" href="https://gitee.com/wjl2004/projects" target="_blank" rel="noopener">
+        <a class="btn-ghost" href="https://gitee.com/WJLGraph/projects" target="_blank" rel="noopener">
           查看全部 · GITEE →
         </a>
       </div>

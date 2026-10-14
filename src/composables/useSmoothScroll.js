@@ -40,3 +40,17 @@ export function scrollToSection(id) {
         el.scrollIntoView({ behavior: 'smooth' })
     }
 }
+
+/**
+ * 即时滚动复位（路由切换用，必须感知 Lenis）：
+ * 原生 window.scrollTo 会被 Lenis 惯性动画写回旧位置——用户点卡片时惯性尚未停止，
+ * 复位被覆盖 → 新页挂载后文档变矮 → 浏览器把滚动钳制到底部（"进详情页落底"的根因）。
+ * lenis.scrollTo + immediate 强制把 Lenis 内部 target/animated 同步到目标位并取消进行中的惯性。
+ */
+export function scrollInstant(y = 0) {
+    if (lenis) {
+        lenis.scrollTo(y, { immediate: true, force: true })
+    } else {
+        window.scrollTo({ top: y, behavior: 'instant' })
+    }
+}

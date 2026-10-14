@@ -6,6 +6,7 @@
 import { ref, computed, onMounted, onBeforeUnmount, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { gsap, ScrollTrigger } from '../composables/useGsap'
+import { scrollInstant } from '../composables/useSmoothScroll'
 import { projects } from '../data/projects'
 import RepoIcon from '../components/RepoIcon.vue'
 import VisualIcon from '../components/VisualIcon.vue'
@@ -13,7 +14,12 @@ import VisualIcon from '../components/VisualIcon.vue'
 const route = useRoute()
 const router = useRouter()
 const rootEl = ref(null)
+const fabEl = ref(null)
+const backEl = ref(null)
 let ctx = null
+let fabSt = null
+
+const prefersReduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 const current = computed(() => projects.find((p) => p.id === route.params.id))
 const idx = computed(() => projects.findIndex((p) => p.id === route.params.id))
@@ -49,19 +55,85 @@ function tabTo(t) {
 
 function playEntrance() {
   if (ctx) ctx.revert()
+  /* 切换项目后回到页顶：返回按钮状态重置为文字版 */
+  if (fabEl.value) {
+    gsap.killTweensOf(fabEl.value)
+    gsap.set(fabEl.value, { clearProps: 'all' })
+  }
   ctx = gsap.context(() => {
     gsap
       .timeline({ defaults: { ease: 'expo.out' } })
       .from('.d-head > *', { y: 40, opacity: 0, duration: 0.9, stagger: 0.08 })
       .from('.d-visual', { y: 60, opacity: 0, duration: 1 }, '-=0.55')
       .from('.d-tabs', { y: 24, opacity: 0, duration: 0.8 }, '-=0.5')
+    /* 真实项目图 scrub 视差（±6% + 恒定 1.15 缩放防露边）：本区块唯一动效，
+       scrub 天然双向可逆，滚动叙事纵深 */
+    if (!prefersReduce() && current.value && current.value.hero) {
+      gsap.fromTo(
+        '.d-visual .v-hero',
+        { yPercent: -6, scale: 1.15 },
+        {
+          yPercent: 6,
+          scale: 1.15,
+          ease: 'none',
+          scrollTrigger: { trigger: '.d-visual', start: 'top bottom', end: 'bottom top', scrub: 0.5 }
+        }
+      )
+    }
   }, rootEl.value)
   ScrollTrigger.refresh()
+}
+
+/* ── 双返回按钮互斥系统 ─────────────────────────────
+ * 顶部文字版「← 返回项目列表」是原生锚点；
+ * 滚动使其完全离开视口后，右上角方框按钮（FAB）滑入接管；
+ * 上滚回到顶部时，FAB 以 FLIP 手势飞回文字版位置并溶解——
+ * 任意时刻两者只有一个可见。 */
+function showFab() {
+  const fab = fabEl.value
+  if (!fab) return
+  gsap.killTweensOf(fab)
+  if (prefersReduce()) return gsap.set(fab, { autoAlpha: 1 })
+  gsap.fromTo(
+    fab,
+    { autoAlpha: 0, x: -18, scale: 0.85 }, /* 左上角：从左侧滑入 */
+    { autoAlpha: 1, x: 0, scale: 1, duration: 0.5, ease: 'power3.out', overwrite: true }
+  )
+}
+
+function hideFab() {
+  const fab = fabEl.value
+  const back = backEl.value
+  if (!fab) return
+  gsap.killTweensOf(fab)
+  if (prefersReduce() || !back) return gsap.set(fab, { autoAlpha: 0 })
+  /* FLIP 归位：测量 FAB 与文字返回键的矩形差，飞回原位并溶解；
+   * 结束 clearProps 归还内联样式，回到 CSS 初始隐藏态 */
+  const f = fab.getBoundingClientRect()
+  const t = back.getBoundingClientRect()
+  gsap.to(fab, {
+    x: `+=${(t.left + t.width / 2 - (f.left + f.width / 2)).toFixed(1)}`,
+    y: `+=${(t.top + t.height / 2 - (f.top + f.height / 2)).toFixed(1)}`,
+    scale: Math.min(0.5, Math.max(0.15, t.height / f.height)),
+    autoAlpha: 0,
+    duration: 0.6,
+    ease: 'power3.inOut',
+    overwrite: true,
+    onComplete: () => gsap.set(fab, { clearProps: 'all' })
+  })
 }
 
 onMounted(async () => {
   await nextTick()
   playEntrance()
+  /* FAB 显隐监听独立于入场 context：入场动画会改触发元素的 y，
+     若在 refresh 期间创建会算错位置；入场完成后再由固定布局测量 */
+  fabSt = ScrollTrigger.create({
+    trigger: backEl.value,
+    start: 'bottom -32', // 文字返回键完全离开视口上方 32px 后 FAB 接管
+    onEnter: showFab,
+    onLeaveBack: hideFab
+  })
 })
 
 watch(
@@ -69,7 +141,7 @@ watch(
   async (nv, ov) => {
     if (nv && ov && nv !== ov) {
       await nextTick()
-      window.scrollTo({ top: 0, behavior: 'auto' })
+      scrollInstant(0)
       playEntrance()
     }
   }
@@ -77,6 +149,8 @@ watch(
 
 onBeforeUnmount(() => {
   if (ctx) ctx.revert()
+  if (fabSt) fabSt.kill()
+  if (fabEl.value) gsap.killTweensOf(fabEl.value)
 })
 
 /* 子页面切换过渡 */
@@ -106,7 +180,9 @@ function onLeave(el, done) {
   <main v-if="current" ref="rootEl" class="detail">
     <!-- 头部 -->
     <div class="d-head">
-      <router-link to="/" class="back mono">← 返回项目列表</router-link>
+      <router-link to="/" custom v-slot="{ href, navigate }">
+        <a :href="href" ref="backEl" class="back mono" @click="navigate">← 返回项目列表</a>
+      </router-link>
       <div class="d-index mono">PROJECT {{ current.index }} / {{ String(projects.length).padStart(2, '0') }} · {{ current.en }}</div>
       <h1 class="d-title">{{ current.name }}</h1>
       <p class="d-tagline">{{ current.tagline }}</p>
@@ -187,6 +263,19 @@ function onLeave(el, done) {
       </router-link>
       <span v-else class="nav-card empty"></span>
     </div>
+    <!-- 左上角方框返回键（Teleport 到 body：App 转场会给页面根加 transform，
+         会劫持 fixed 定位使其随页滚动，故必须挂在组件树之外；
+         Teleport 置于 main 内部保持组件单根，避免破坏 <Transition>） -->
+    <Teleport to="body">
+      <button
+        ref="fabEl"
+        class="fab-back"
+        type="button"
+        aria-label="返回项目列表"
+        title="返回项目列表"
+        @click="router.push('/')"
+      >←</button>
+    </Teleport>
   </main>
 </template>
 
@@ -201,13 +290,57 @@ function onLeave(el, done) {
   display: inline-block;
   font-size: 11px;
   letter-spacing: 3px;
-  color: var(--ink-faint);
+  color: var(--ink-dim);
   margin-bottom: 40px;
-  transition: color 0.3s;
+  padding: 12px 20px;
+  border: 1px solid var(--line);
+  transition: color 0.3s, border-color 0.3s;
 }
 
 .back:hover {
   color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* 左上角方框返回键：与导航 logo 同列对齐（logo left 50px），位于导航下方；
+   与顶部文字版互斥，飞回动画由 GSAP 驱动
+   （transition 只允许 color/border，transform 归 GSAP 所有，防止双动画源打架） */
+.fab-back {
+  position: fixed;
+  top: 92px;
+  left: 50px;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg-2) 72%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 880; /* 低于导航 900，不遮顶部条 */
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.fab-back:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  .fab-back {
+    top: 78px;
+    left: 24px; /* 与 <900px 时导航 padding 对齐 */
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+  }
 }
 
 .d-index {

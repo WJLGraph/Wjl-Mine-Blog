@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { scrollInstant } from '../composables/useSmoothScroll'
 
 // 使用 hash 模式：静态托管（GitHub Pages / Gitee Pages）无需 404 回退配置
 const router = createRouter({
@@ -53,9 +54,12 @@ const router = createRouter({
         }
     ],
     scrollBehavior(to, from, savedPosition) {
-        // 浏览器前进 / 后退：恢复原位置
-        if (savedPosition) return savedPosition
-            // 同一项目详情内切换子页面（Tab）：保持当前滚动位置
+        // 浏览器前进 / 后退：恢复原位置（走 Lenis 感知的即时复位，避免惯性写回）
+        if (savedPosition) {
+            scrollInstant(savedPosition.top)
+            return false
+        }
+        // 同一项目详情内切换子页面（Tab）：保持当前滚动位置
         if (
             to.matched[0] &&
             from.matched[0] &&
@@ -79,9 +83,12 @@ const router = createRouter({
                 }
                 let stable = -1
                 const settle = (y) => {
-                    if (y < 0) return resolve({ top: 0 })
-                        // 瞬时定位：smooth 动画会被路由过渡完成时的 ScrollTrigger.refresh() 打断并重置到中途位置
-                    window.scrollTo({ top: Math.max(0, y - 90), behavior: 'instant' })
+                    if (y < 0) {
+                        scrollInstant(0)
+                        return resolve(false)
+                    }
+                    // 瞬时定位：smooth 动画会被路由过渡完成时的 ScrollTrigger.refresh() 打断并重置到中途位置
+                    scrollInstant(Math.max(0, y - 90))
                     resolve(false)
                         // 6s 观察期：字体子集 / 懒加载导致的布局漂移自动校正；
                         // 用户一旦手动滚动（wheel / 触摸 / 按键 / 按下）立即停止校正
@@ -98,7 +105,7 @@ const router = createRouter({
                         if (stopped || router.currentRoute.value.name !== 'home') return stop()
                         const y2 = measure()
                         if (y2 > 0 && Math.abs(window.scrollY - Math.max(0, y2 - 90)) > 2) {
-                            window.scrollTo({ top: Math.max(0, y2 - 90), behavior: 'instant' })
+                            scrollInstant(Math.max(0, y2 - 90))
                         }
                     }
                     ro = new ResizeObserver(() => setTimeout(check, 60))
@@ -112,7 +119,10 @@ const router = createRouter({
                     setTimeout(stop, 6000)
                 }
                 const wait = () => {
-                    if (router.currentRoute.value.name !== 'home') return resolve({ top: 0 })
+                    if (router.currentRoute.value.name !== 'home') {
+                        scrollInstant(0)
+                        return resolve(false)
+                    }
                     const y = measure()
                     if (y > 0 && y === stable) return settle(y)
                     stable = y
@@ -122,7 +132,10 @@ const router = createRouter({
                 setTimeout(wait, 400)
             })
         }
-        return { top: 0 }
+        // 默认（如首页 → 项目详情）：顶部复位走 Lenis 感知的即时跳转，
+        // 返回 false 阻止 vue-router 用原生 scrollTo 二次滚动（会被 Lenis 惯性写回旧位置）
+        scrollInstant(0)
+        return false
     }
 })
 

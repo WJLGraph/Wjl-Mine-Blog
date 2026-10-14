@@ -18,7 +18,7 @@ agent_created: true
 6. **动画跟手，不跟时间。** 叙事类（退场/视差/打字/揭示）一律 `scrub`；强调类（入场/磁吸/hover）才用 duration 补间。
 7. **动效必须有叙事职能。** 每个动画要么引导视线、要么揭示信息、要么建立节奏；纯装饰动画一律删除。
 8. **交付形态看场景。** 展示型页面默认产出可直接打开的单文件 HTML（复制 `assets/template.html` 为起点）；用户明确要求 Vue/React 工程化时，按 `references/recipes.md` 配方实现。
-9. **降级完备 + 生命周期清理。** 三重降级（`prefers-reduced-motion` / 触屏无 hover / < 768px）缺一不可；每个动画必须在卸载时 kill/revert；特效颜色只准引用设计令牌，不自造色值。
+9. **降级完备 + 生命周期清理。** 三重降级（`prefers-reduced-motion` / 触屏无 hover / < 768px）缺一不可，统一用 `gsap.matchMedia()` 条件对象实现；每个动画必须在卸载时 kill/revert（Vue 中 `gsap.context(scope)` + `onBeforeUnmount(() => ctx.revert())`）；特效颜色只准引用设计令牌，不自造色值。
 
 ## 工作流程（六步，按序执行）
 
@@ -37,6 +37,7 @@ agent_created: true
 ### Step 5 — 实现
 - **单文件交付**：整文件复制 `assets/template.html`（已内置 Preloader / Lenis / 自定义光标 / 磁吸 / 逐行揭示 / 图片揭示 / Marquee / Grain / 全部降级），替换 token 与内容，删除未用区块。
 - **工程化交付（Vue3/React）**：按 `references/recipes.md` 逐条移植配方。Lenis 挂布局层而非页面组件；`document.fonts.ready` 后再切分文字；路由切换时 `lenis.scrollTo(0, { immediate: true })` + `ScrollTrigger.refresh()`。
+- **引擎纪律全程生效**：所有代码必须同时过 `references/gsap-engine.md` 十节（transform 别名 / autoAlpha / timeline 位置参数 / scrub↔toggleActions 互斥 / context+revert / quickTo / utils 工具箱 / 插件注册一次）。美学决定"做什么"，引擎纪律决定"做得对"。
 
 ### Step 6 — 质检验收
 过 `references/implementation.md` 的《交付质检清单》+ 下方《验收协议》，未过不交付。
@@ -59,6 +60,10 @@ agent_created: true
 | 微交互 | 自定义光标 | 点 + 环双层，difference 混合，全站唯一 mix-blend | P6 / template |
 | 微交互 | 3D 倾斜卡片 | quickTo rotationX/Y + 指针光斑 | recipes |
 | 微交互 | 代码窗口打字 | 隐形 sizer 锁布局 + tokenize 逐帧截断 | recipes §8 |
+| 引擎 | autoAlpha 淡隐 | 归零自动 visibility:hidden，不挡点击 | gsap-engine §1 |
+| 引擎 | gsap.matchMedia | 断点 + reduced-motion 条件动画，自动 revert | gsap-engine §5 |
+| 引擎 | ScrollTrigger.batch | 列表批量入场统一编排（interval/batchMax） | gsap-engine §3 |
+| 引擎 | Flip 状态动画 | getState→改DOM→from()；fit() 做"归位"手势 | gsap-engine §8 |
 | 质感 | Grain 颗粒 | feTurbulence 噪点 opacity .05，消除塑料感 | P12 / template |
 | 质感 | 阅读进度条 | 2px 渐变 scaleX(0→1) scrub 全页 | recipes §9 |
 | 路由 | 页面转场 | 遮幕盖下 → 换页 → 揭开 | P11 |
@@ -92,5 +97,6 @@ agent_created: true
 | `references/style-systems.md` | 6 大风格体系：字体对、配色 token、排版规范 | Step 2 选体系时 |
 | `references/motion-patterns.md` | 12 动效模式 + 呼吸感节奏律 B1–B6 | Step 4 编排动效时 |
 | `references/recipes.md` | 12+ 个实战验证的即用代码配方（GSAP 3 / Vue3） | 工程化实现时 |
+| `references/gsap-engine.md` | GSAP 官方工程纪律十节：核心 API、ScrollTrigger、matchMedia、性能、utils、插件、框架集成 + 引擎自查清单 | 写/审任何动画代码时 |
 | `references/implementation.md` | CDN 清单、工程化集成、性能红线、降级矩阵、质检清单 | Step 5–6 实现与质检时 |
 | `assets/template.html` | 单文件高端模板（自包含约 700 行） | 单文件交付时整文件复制 |
