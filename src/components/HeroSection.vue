@@ -65,6 +65,14 @@ onMounted(() => {
       opacity: 0.3
     })
 
+    // 滚动叙事：主内容随离场缓缓上浮淡出，交给下一区块
+    gsap.to('.hero-content', {
+      scrollTrigger: { trigger: rootEl.value, start: 'top top', end: 'bottom 35%', scrub: 0.6 },
+      y: -140,
+      opacity: 0,
+      ease: 'none'
+    })
+
     // 预加载结束后播放入场
     onPreloaderDone(play)
   }, rootEl.value)

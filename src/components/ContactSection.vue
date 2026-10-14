@@ -1,5 +1,22 @@
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { magnetic } from '../composables/useMagnetic'
 import RepoIcon from './RepoIcon.vue'
+
+const rootEl = ref(null)
+let cleanups = []
+
+onMounted(() => {
+  // 联系卡片磁吸
+  rootEl.value?.querySelectorAll('.contact-card').forEach((el) => {
+    cleanups.push(magnetic(el, 0.22))
+  })
+})
+
+onBeforeUnmount(() => {
+  cleanups.forEach((fn) => fn())
+  cleanups = []
+})
 
 const links = [
   {
@@ -20,7 +37,7 @@ const links = [
 </script>
 
 <template>
-  <section id="contact" class="contact">
+  <section id="contact" class="contact" ref="rootEl">
     <div class="sec-label center">05 — 联系 / CONTACT</div>
     <div class="contact-big reveal">
       LET'S BUILD

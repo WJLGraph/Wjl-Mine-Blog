@@ -1,6 +1,7 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useTheme } from '../composables/useTheme'
+import { scrollToSection } from '../composables/useSmoothScroll'
 
 const router = useRouter()
 const { theme, toggle } = useTheme()
@@ -9,15 +10,10 @@ const { theme, toggle } = useTheme()
 function goSection(id) {
   if (router.currentRoute.value.name !== 'home') {
     router.push('/')
-    setTimeout(() => scrollTo(id), 450)
+    setTimeout(() => scrollToSection(id), 450)
   } else {
-    scrollTo(id)
+    scrollToSection(id)
   }
-}
-
-function scrollTo(id) {
-  const el = document.getElementById(id)
-  if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
 </script>
 

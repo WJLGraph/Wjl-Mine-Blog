@@ -10,18 +10,21 @@ import ProjectCard from '../components/ProjectCard.vue'
 import TimelineSection from '../components/TimelineSection.vue'
 import ContactSection from '../components/ContactSection.vue'
 import { scrambleIn } from '../composables/useScramble'
+import { magnetic } from '../composables/useMagnetic'
 
 const rootEl = ref(null)
 let ctx = null
+let magneticCleanups = []
 
 onMounted(async () => {
   await nextTick()
 
   ctx = gsap.context(() => {
-    // 通用滚动显现
+    // 通用滚动显现：上滑越过起点时反向收回，双向都有呼应
+    const REV = 'play none none reverse'
     gsap.utils.toArray('.reveal', rootEl.value).forEach((el) => {
       gsap.from(el, {
-        scrollTrigger: { trigger: el, start: 'top 88%' },
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: REV },
         y: 56,
         opacity: 0,
         duration: 1.2,
@@ -29,10 +32,10 @@ onMounted(async () => {
       })
     })
 
-    // 区块大标题：保留滑入
+    // 区块大标题：保留滑入，双向可逆
     gsap.utils.toArray('.sec-title', rootEl.value).forEach((el) => {
       gsap.from(el, {
-        scrollTrigger: { trigger: el, start: 'top 90%' },
+        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: REV },
         x: -36,
         opacity: 0,
         duration: 1,
@@ -40,11 +43,11 @@ onMounted(async () => {
       })
     })
 
-    // 区块小标签：淡入 + 解码乱码（只触发一次）
+    // 区块小标签：淡入 + 解码乱码（解码只触发一次，淡入双向可逆）
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     gsap.utils.toArray('.sec-label', rootEl.value).forEach((el) => {
       gsap.from(el, {
-        scrollTrigger: { trigger: el, start: 'top 90%' },
+        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: REV },
         opacity: 0,
         duration: 0.7,
         ease: 'power2.out'
@@ -58,10 +61,30 @@ onMounted(async () => {
         })
       }
     })
+
+    // 大标题英文幽灵字：轻微视差漂移，增强滚动纵深
+    gsap.utils.toArray('.sec-title .en', rootEl.value).forEach((el) => {
+      gsap.fromTo(
+        el,
+        { xPercent: -4 },
+        {
+          xPercent: 4,
+          ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+        }
+      )
+    })
+
+    // 幽灵按钮磁吸
+    magneticCleanups = gsap.utils
+      .toArray('.btn-ghost', rootEl.value)
+      .map((el) => magnetic(el, 0.25))
   }, rootEl.value)
 })
 
 onBeforeUnmount(() => {
+  magneticCleanups.forEach((fn) => fn())
+  magneticCleanups = []
   if (ctx) ctx.revert()
 })
 </script>
