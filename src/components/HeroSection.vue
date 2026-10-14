@@ -9,7 +9,8 @@ const glowEl = ref(null)
 let ctx = null
 let mousemove = null
 
-const tags = ['PYTHON', 'VUE', 'LLM · AGENT', 'DATA-VIZ', 'GO']
+// 与 AboutSection 技术栈严格对应
+const tags = ['PYTHON', 'VUE', 'LLM · AGENT', 'DATA-VIZ', 'FASTAPI']
 
 function play() {
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })

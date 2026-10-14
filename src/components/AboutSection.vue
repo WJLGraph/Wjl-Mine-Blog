@@ -92,13 +92,6 @@ onBeforeUnmount(() => {
           我相信好的工程是<em>理性架构</em>与<em>审美直觉</em>的结合 ——
           系统要可靠，界面要克制，体验要有呼吸感。
         </p>
-
-        <div v-for="g in skillGroups" :key="g.title" class="skill-group">
-          <div class="sg-title">{{ g.title }}</div>
-          <div class="skill-tags">
-            <span v-for="t in g.tags" :key="t">{{ t }}</span>
-          </div>
-        </div>
       </div>
 
       <div class="stats">
@@ -109,6 +102,15 @@ onBeforeUnmount(() => {
         <div class="stat">
           <div class="num">20<i>23</i></div>
           <div class="desc">持续创造 / SINCE</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-groups">
+      <div v-for="(g, i) in skillGroups" :key="g.title" class="skill-group">
+        <div class="sg-title"><i>{{ String(i + 1).padStart(2, '0') }}</i>{{ g.title }}</div>
+        <div class="skill-tags">
+          <span v-for="t in g.tags" :key="t">{{ t }}</span>
         </div>
       </div>
     </div>
@@ -139,22 +141,70 @@ onBeforeUnmount(() => {
   color: var(--accent);
 }
 
+.skill-groups {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 56px;
+}
+
+/* 算法·数据分组标签少，通栏收尾避免半行留白 */
+.skill-group:last-child {
+  grid-column: 1 / -1;
+}
+
 .skill-group {
-  margin-top: 32px;
+  position: relative;
+  border: 1px solid var(--line);
+  background: var(--glass);
+  border-radius: 14px;
+  padding: 22px 24px 24px;
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.skill-group::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(158, 203, 255, 0.45), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.skill-group:hover {
+  border-color: rgba(158, 203, 255, 0.35);
+}
+
+.skill-group:hover::before {
+  opacity: 1;
 }
 
 .sg-title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 4px;
   color: var(--ink-faint);
-  margin-bottom: 14px;
+  margin-bottom: 18px;
+}
+
+.sg-title i {
+  font-style: normal;
+  color: var(--accent);
+  letter-spacing: 1px;
 }
 
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
 }
 
 .skill-tags span {
@@ -162,10 +212,8 @@ onBeforeUnmount(() => {
   letter-spacing: 1px;
   color: var(--ink-dim);
   border: 1px solid var(--line);
-  background: var(--glass);
   padding: 8px 16px;
   border-radius: 20px;
-  backdrop-filter: blur(8px);
   transition: border-color 0.3s, color 0.3s, transform 0.3s;
 }
 
@@ -177,6 +225,7 @@ onBeforeUnmount(() => {
 
 .stats {
   display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1px;
   background: var(--line);
   border: 1px solid var(--line);
@@ -184,7 +233,7 @@ onBeforeUnmount(() => {
 
 .stat {
   background: var(--bg-2);
-  padding: 34px 30px;
+  padding: 30px 24px;
   position: relative;
   overflow: hidden;
 }
@@ -229,6 +278,18 @@ onBeforeUnmount(() => {
   .about-wrap {
     grid-template-columns: 1fr;
     gap: 50px;
+  }
+
+  .skill-groups {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-group:last-child {
+    grid-column: auto;
+  }
+
+  .skill-group {
+    padding: 18px 16px 20px;
   }
 }
 </style>
