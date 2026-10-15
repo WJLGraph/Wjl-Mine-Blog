@@ -31,6 +31,11 @@ defineProps({
     <path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4L12 2z" />
     <circle cx="12" cy="12" r="2.2" />
   </svg>
+  <svg v-else-if="icon === 'deck'" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(240,170,130,0.9)" stroke-width="1.2">
+    <rect x="4" y="4.5" width="16" height="11" rx="1" />
+    <path d="M7 8.5h6M7 11.5h4M17 8.5h.01M17 11.5h.01" />
+    <path d="M8 20l4-4.5 4 4.5" />
+  </svg>
   <svg v-else width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,200,110,0.9)" stroke-width="1.2">
     <path d="M5 8h14l-1.5 12h-11L5 8z" />
     <path d="M9 8V6a3 3 0 0 1 6 0v2" />

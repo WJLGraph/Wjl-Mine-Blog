@@ -20,7 +20,7 @@ const skillGroups = [
   },
   {
     title: 'AI · AGENT',
-    tags: ['LangChain / LangGraph', 'LLM Agent 编排', 'Agent Skill 设计（Haute）', 'Prompt 工程', 'RAG 知识库', 'HITL 人工审批', 'Agent 红队测试', '混沌注入', 'MCP 协议', 'Langfuse 观测', 'OpenAI / DashScope']
+    tags: ['LangChain / LangGraph', 'LLM Agent 编排', 'Agent Skill 设计（Haute / PPT）', 'Prompt 工程', 'RAG 知识库', 'HITL 人工审批', 'Agent 红队测试', '混沌注入', 'MCP 协议', 'Langfuse 观测', 'OpenAI / DashScope']
   },
   {
     title: '算法 · 数据 / ALGORITHM',
@@ -29,8 +29,8 @@ const skillGroups = [
 ]
 
 const stats = [
-  { target: 16, suffix: '+', desc: '公开仓库 / REPOS' },
-  { target: 7, suffix: '+', desc: '完整项目 / PROJECTS' },
+  { target: 17, suffix: '+', desc: '公开仓库 / REPOS' },
+  { target: 8, suffix: '+', desc: '完整项目 / PROJECTS' },
   { target: 5, suffix: '+', desc: '技术方向 / FIELDS' }
 ]
 

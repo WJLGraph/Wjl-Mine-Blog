@@ -578,6 +578,77 @@ export const projects = [{
         docs: [
             { file: 'readme.md', label: 'README · 技能主文档' }
         ]
+    },
+    {
+        id: 'universal-ppt-skills',
+        index: '09',
+        featured: false,
+        visual: 'v5',
+        icon: 'deck',
+        name: 'Universal PPT · 全场景演示技能',
+        en: 'PRESENTATION SKILL',
+        year: '2026',
+        tagline: '开源 AI Agent 技能：蒸馏 17 个开源 PPT skill，六类场景 × 30+ 风格 × 8 条渲染路径的演示文稿生成系统',
+        desc: '学术答辩 / 商务述职 / 教学课件 / 政务汇报 / 竞赛路演 / 日常表达全覆盖 —— 两阶段铁律 + 叙事优先 + 零编造，把「做一份好 PPT」变成 agent 可复现的工程。',
+        hero: 'shots/universal-ppt-skills/01-banner.jpg',
+        overview: [
+            'Universal PPT 是我蒸馏 17 个开源 PPT 相关 skill（anthropics/pptx、codex-ppt、deer-flow、nature-skills、academic-pptx、paper2ppt 等）而成的通用演示文稿生成技能：以 SKILL.md 为入口，按「学术论证 / 商务汇报 / 教学讲解 / 日常表达 / 政务党建 / 竞赛路演」六类模式路由场景，覆盖从论文转 slides、组会文献汇报到图片式 PPT 还原为可编辑文件的全部高频需求。',
+            '技能立三条不可动摇的原则、走五阶段工作流：先拆素材为结构化大纲并经用户确认（两阶段铁律），叙事优先于排版（argument → data → layout → aesthetics），零编造、结论可溯源；随后 Stage 3 从 30+ 风格库选型定视觉规格，Stage 4 在八条渲染路径（原生 PPTX / 模板注入 / HTML 截图 / AI 生图 / Marp / Beamer / SVG / 图片还原）中按需选路，Stage 5 过内容 — 视觉 — 溯源三道质检闸交付。'
+        ],
+        role: '独立创作 · 技能蒸馏 / 体系设计 / 开源发布',
+        period: '2026.10',
+        status: '已开源 · 蒸馏自 17 个 skill',
+        archDesc: [
+            '技能结构：SKILL.md 承载三原则 + 场景路由表 + 五阶段工作流 + 12 页学术汇报标准结构；references/ 五份长文档按需加载 —— narrative-patterns（六类场景页面模板 / action title 门禁 / ghost deck 测试 / 文献综合法）、style-library（风格选择器 + 30+ 风格规范三族）、render-paths（八路径决策树）、design-language（文字预算 / AI 味反模式 / 呼吸感法则）、qa-gates（严重度分级质检清单）；prompts/ 提供两阶段可复用 prompt 模板。',
+            '工程约定：术语台账全程逐字一致；action title 必须是结论句，只读全部标题串要能独立讲完整论证；每页配 80-120 字中文讲稿；禁用标题彩色装饰线、横贯色条、单侧竖条纹等「AI 生成味」标志；信息密度交替、连续高密度页之间插喘息页。'
+        ],
+        stackGroups: [
+            { group: '场景模式', items: ['A 学术论证', 'B 商务汇报', 'C 教学讲解', 'D 日常表达', 'E 政务党建', 'F 竞赛路演'] },
+            { group: '渲染路径', items: ['原生 PPTX', '模板母版注入', 'HTML 截图', 'AI 生图', 'Marp / Reveal.js', 'LaTeX Beamer', 'SVG / Mermaid', '图片转可编辑'] },
+            { group: '技能形态', items: ['SKILL.md 入口', '5 份 references', '阶段 prompt 模板', '风格选择器', '质检 checklist'] },
+            { group: '蒸馏源', items: ['anthropics/pptx', 'codex-ppt', 'deer-flow', 'nature-skills', 'academic-pptx', '+12 more'] }
+        ],
+        features: [
+            { title: '六类场景路由', desc: '学术 / 商务 / 教学 / 日常 / 政务 / 竞赛各有独立叙事骨架与视觉基调，歧义默认学术；学术模式再按素材类型细分五条论证弧线（发现 / 方法 / 资源 / 实验 / 综述）。' },
+            { title: '两阶段铁律', desc: '永远先产出页面级大纲（action title + 页面类型 + 视觉建议）经用户确认，再动手渲染，绝不一步生成。' },
+            { title: '30+ 风格库', desc: '学术克制 / 中文实用 / 现代表现三族风格规范 + 经典配色板 + 风格选择器，用户品牌色与学校模板色永远优先。' },
+            { title: '八条渲染路径', desc: '从 python-pptx 原生构建到图片式 PPT 还原为可编辑对象，按「可编辑性 × 视觉自由度 × 环境依赖」决策树选路，路径可自由组合。' },
+            { title: '三道质检闸', desc: '内容（截断 / 术语一致 / 占位符）→ 视觉（溢出→重叠→对齐→对比度按优先级修两遍即停）→ 溯源（关键结论逐条核对出处，引用格式统一）。' },
+            { title: '零编造原则', desc: '不编造论文没有的内容与数据，每条关键结论可溯源到章节 / 图表 / 链接，无法溯源就显式标注「需人工核实」。' }
+        ],
+        effects: [
+            { title: '已开源上线', desc: 'GitHub @WJLGraph/universal-ppt-skills，SKILL.md + references + prompts 全量可读。' },
+            { title: '蒸馏方法论沉淀', desc: '17 个开源 skill 通读 → 提炼共识 → 去重合并 → 场景化重组，形成可复用的技能蒸馏流程。' },
+            { title: '不绑定宿主环境', desc: '渲染不绑定单一模型：Trae / Claude Code / 通用 harness 中均可按 SKILL.md 路由执行，已有官方 PPT 技能时文件层操作可委托。' },
+            { title: '实验驱动迭代', desc: '以「个人信息介绍」「iTransformer 讲解」两类任务 × 多环境做对照实验，持续校准输出质量基线。' }
+        ],
+        problems: [
+            { problem: 'Agent 做 PPT 习惯一步生成、跳过对齐', solution: '两阶段铁律 + ghost deck 测试：只读标题串必须能讲通论证，大纲不过关不渲染' },
+            { problem: '标题写成「研究背景」式空话', solution: 'action title 门禁：标题必须是完整结论句，narrative-patterns 给出正反对照' },
+            { problem: '场景差异大、单一模板失配', solution: '六类场景各配页面结构模板，开题 / 中期 / 结题 / 答辩 / 竞赛 / 政务子场景全覆盖' },
+            { problem: 'AI 生成 PPT 观感廉价（装饰线 / 色条 / 高饱和堆砌）', solution: 'design-language 反模式清单 + 单主色 60-70% 权重 + 密度交替呼吸感排版' }
+        ],
+        difficulties: [
+            { title: '17 个 skill 的蒸馏合并', desc: '逐个通读提炼共识（两阶段 / action title / 质检），去重后按场景重组而非并列堆砌；SKILL.md 控制入口体积，长文档按需加载。' },
+            { title: '渲染路径的工程选型', desc: '八条路径各有依赖与坑：原生 PPTX 可编辑但视觉受限、HTML 截图自由但不可逐字编辑、模板注入要解析 layouts + placeholders —— 决策树把选择变成规则。' },
+            { title: '描述与触发路由', desc: 'frontmatter description 需在有限字符内覆盖六类场景与高频触发词（做PPT / 答辩PPT / 述职 / 课件 / 图片转PPT），兼顾路由命中与场景表达。' },
+            { title: '质检的可执行化', desc: '把「好看」「准确」拆成逐项 checklist 与严重度分级：第一版必有溢出 / 重叠，修一版复检一版、两遍干净即停，避免无限打磨。' }
+        ],
+        shots: [
+            { src: 'shots/universal-ppt-skills/01-banner.jpg', caption: 'Universal PPT 仓库 Banner — Nocturne 调性（黑场 × 香槟金 × 幻灯片层叠）' }
+        ],
+        metrics: [
+            { label: '场景模式', value: '6 类' },
+            { label: '风格预设', value: '30+' },
+            { label: '渲染路径', value: '8 条' },
+            { label: '蒸馏源 skill', value: '17 个' }
+        ],
+        links: [
+            { label: 'GITHUB', type: 'github', url: 'https://github.com/WJLGraph/universal-ppt-skills' }
+        ],
+        docs: [
+            { file: 'readme.md', label: 'README · 技能主文档' }
+        ]
     }
 ]
 
@@ -626,5 +697,10 @@ export const timeline = [{
         date: '2026.10 · OPEN SOURCE',
         title: 'Haute · 高端 GSAP Skills 开源',
         desc: '把本站的开发方法沉淀为开源 AI Agent 技能并发布 GitHub：6 大风格体系、12 动效模式 + B1–B6 呼吸感节奏律、12+ 实战配方与 10 节引擎纪律，四路分发（skills CLI / Claude / Cursor / Copilot）全部合规打通，MIT 协议。'
+    },
+    {
+        date: '2026.10 · SKILL FORGE',
+        title: 'Universal PPT · 全场景演示技能',
+        desc: '蒸馏 17 个开源 PPT skill 的通用演示文稿生成技能并开源：六类场景路由（学术 / 商务 / 教学 / 日常 / 政务 / 竞赛）× 30+ 风格库 × 8 条渲染路径，两阶段铁律 + action title 门禁 + 内容—视觉—溯源三道质检闸，以多环境对照实验持续校准输出质量。'
     }
 ]
