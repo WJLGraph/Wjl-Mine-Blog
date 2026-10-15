@@ -30,7 +30,7 @@ const skillGroups = [
 
 const stats = [
   { target: 17, suffix: '+', desc: '公开仓库 / REPOS' },
-  { target: 8, suffix: '+', desc: '完整项目 / PROJECTS' },
+  { target: 9, suffix: '+', desc: '完整项目 / PROJECTS' },
   { target: 5, suffix: '+', desc: '技术方向 / FIELDS' }
 ]
 
