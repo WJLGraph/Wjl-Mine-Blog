@@ -14,7 +14,7 @@ export const projects = [{
         year: '2026',
         tagline: '焰哨 FlameSentry · 智慧火险预警与多智能体协作平台',
         desc: '多 Agent 协同完成火险数据检索、风险研判与结构化报告生成，并经红队持续加固的 Agent 风格系统。',
-        hero: 'shots/fire-agent/02-agent-center.png',
+        hero: 'shots/fire-agent/02-dashboard.png',
         overview: [
             '焰哨系统是我「火防三部曲」的终点站：本科毕业设计先以「智火卫渝」在重庆完成多源数据融合的火险智能预测，随后将研究区域转向云南、沉淀为「云南省火险可视化大屏」，最终在纯前端大屏的基础上重构为一套以大模型为核心的 Agent 风格系统 —— 由多 Agent 协同完成火险数据检索、风险研判与报告生成，把「看数据」升级为「由系统替你研判数据」。',
             '系统采用前后端分离架构：Vue3 前端提供登录注册、作战大屏、智能查询、知识库、Agent 协作中心、报告中心、个人中心、系统管理八大模块，支持 2D/3D 数字孪生切换、明暗双主题与全链路语音交互；FastAPI 后端以 LangGraph 编排 8 节点 Agent 工作流，SSE 实时推送节点级进度，PostgresSaver 持久化任务状态，支持 HITL 人工审批中断恢复。开发过程中，我同步构建了 Agent-Gauntlet 红队测试系统对其持续加固，形成「攻击 — 防御 — 修复」的安全闭环。'
@@ -61,14 +61,16 @@ export const projects = [{
             { title: '混沌注入无感化', desc: 'chaos injection hook 以环境变量门控、默认关闭，保证生产路径零感知，测试时又可向任意节点注入故障。' }
         ],
         shots: [
-            { src: 'shots/fire-agent/02-agent-center.png', caption: 'Agent 协作中心 — 多智能体协同过程可视（浅色主题）' },
-            { src: 'shots/fire-agent/03-report-center.png', caption: '报告中心 — 报告独立归档与检索（浅色主题）' },
-            { src: 'shots/fire-agent/04-smart-query.png', caption: '智能查询 — 自然语言驱动数据检索（浅色主题）' },
-            { src: 'shots/fire-agent/05-knowledge.png', caption: '知识库 — RAG 领域知识管理（浅色主题）' },
-            { src: 'shots/fire-agent/06-login.png', caption: '登录注册 — JWT 认证入口（浅色主题）' },
-            { src: 'shots/fire-agent/07-arch.png', caption: '系统架构图（仓库 docs/puml）' },
-            { src: 'shots/fire-agent/08-langgraph.png', caption: 'LangGraph 编排图（仓库 docs/puml）' },
-            { src: 'shots/fire-agent/09-hitl.png', caption: 'HITL 人工审批流程（仓库 docs/puml）' }
+            { src: 'shots/fire-agent/01-home.png', caption: '官网概览 — 在火情发生之前，把风险看清楚' },
+            { src: 'shots/fire-agent/02-dashboard.png', caption: '作战大屏 — 3D 数字孪生地形 + 16 州市五级火险分级与统计面板（浅色主题）' },
+            { src: 'shots/fire-agent/03-smart-query.png', caption: '智能查询 — QueryAgent 解析问题，结果可切换表格 / 图表 / 地图并导出 CSV' },
+            { src: 'shots/fire-agent/04-knowledge.png', caption: '知识库 — 文档切分入库、混合检索（向量 + 关键词）与带引用的 RAG 回答' },
+            { src: 'shots/fire-agent/05-agent-center.png', caption: 'Agent 协作中心 — Orchestrator 拆解计划，Data / Rag / Gis / Report 多 Agent 流水线（7/7 步）' },
+            { src: 'shots/fire-agent/06-report-center.png', caption: '报告中心 — 报告独立归档、正文详情与导出 / 打印' },
+            { src: 'shots/fire-agent/07-system.png', caption: '系统管理 — 6 个 Agent 运行状态、7 类模型服务与系统健康' },
+            { src: 'shots/fire-agent/08-arch.png', caption: '系统架构图（仓库 docs/puml）' },
+            { src: 'shots/fire-agent/09-langgraph.png', caption: 'LangGraph 编排图（仓库 docs/puml）' },
+            { src: 'shots/fire-agent/10-hitl.png', caption: 'HITL 人工审批流程（仓库 docs/puml）' }
         ],
         metrics: [],
         links: [
