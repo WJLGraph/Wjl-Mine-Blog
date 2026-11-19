@@ -45,6 +45,43 @@ const DIAGRAMS = {
       { points: [[894, 286], [894, 350]], el: '挂起 / 恢复', dashed: true }
     ]
   },
+  /* ─── PRism：前端 → 服务层 → Agent 编排 + A2A ─── */
+  'prism': {
+    w: 960,
+    h: 470,
+    nodes: [
+      { x: 60, y: 26, w: 840, h: 54, l1: '前端交互层 · Next.js 15 + React 19', l2: '工作台 · 会话 · Issue · PR · CI · 知识库 · 评测 · 工作区' },
+      { x: 330, y: 112, w: 190, h: 48, l1: 'FastAPI 服务层', accent: true },
+      { x: 560, y: 112, w: 220, h: 48, l1: 'A2A Server · /a2a', l2: 'Agent Card · JSON-RPC · SSE', dashed: true },
+      { x: 40, y: 196, w: 210, h: 52, l1: 'ChatAgent', l2: '原生工具调用循环', accent: true },
+      { x: 40, y: 272, w: 210, h: 54, l1: '工具集 · 11 项', l2: '工作区 · RAG · Issue/PR/CI' },
+      { x: 40, y: 344, w: 210, h: 46, l1: '周报 · 安全 · 工作流' },
+      { x: 300, y: 196, w: 110, h: 52, l1: 'Planner', l2: '任务图' },
+      { x: 440, y: 196, w: 130, h: 52, l1: '领域 Agent', l2: 'Issue · PR · CI' },
+      { x: 600, y: 196, w: 100, h: 52, l1: 'Observer', l2: '复核门禁' },
+      { x: 730, y: 196, w: 120, h: 52, l1: 'Synthesis', l2: '汇总备忘录', accent: true },
+      { x: 700, y: 272, w: 220, h: 52, l1: '外部 A2A Agent', l2: 'message/send · stream', dashed: true },
+      { x: 40, y: 402, l1: 'SUPPORT · 数据与外部服务', ghost: true },
+      { x: 40, y: 422, w: 210, h: 46, l1: 'PostgreSQL + pgvector', l2: '结构化数据 · 向量回退' },
+      { x: 270, y: 422, w: 180, h: 46, l1: 'Milvus', l2: '主向量库' },
+      { x: 470, y: 422, w: 170, h: 46, l1: 'GitHub REST API', l2: 'Issue · PR · CI' },
+      { x: 660, y: 422, w: 260, h: 46, l1: 'OpenAI 兼容 LLM', l2: 'Chat · Judge · Embedding' }
+    ],
+    edges: [
+      { points: [[425, 80], [425, 112]], el: 'REST + SSE' },
+      { points: [[520, 136], [560, 136]], el: '协议' },
+      { points: [[330, 160], [330, 180], [145, 180], [145, 196]], el: '调度' },
+      { points: [[425, 160], [425, 170], [355, 170], [355, 196]] },
+      { points: [[410, 222], [440, 222]] },
+      { points: [[570, 222], [600, 222]] },
+      { points: [[700, 222], [730, 222]] },
+      { points: [[670, 160], [810, 160], [810, 272]], el: '互连', dashed: true },
+      { points: [[145, 248], [145, 272]] },
+      { points: [[145, 326], [145, 344]] },
+      { points: [[145, 390], [145, 422]] },
+      { points: [[505, 248], [505, 422]], el: 'Issue / PR / CI' }
+    ]
+  },
   /* ─── 02 Agent-Gauntlet：攻击流水线 + 双轮判定 ─── */
   'agent-gauntlet': {
     w: 960,

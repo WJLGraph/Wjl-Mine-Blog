@@ -87,8 +87,92 @@ export const projects = [{
         ]
     },
     {
-        id: 'agent-gauntlet',
+        id: 'prism',
         index: '02',
+        featured: true,
+        visual: 'v6',
+        icon: 'spark',
+        name: 'PRism · 研发协作多智能体',
+        en: 'PRISM AI WORKBENCH',
+        year: '2026',
+        tagline: '面向 GitHub PR / Issue 研发协作的多智能体平台 —— 一束需求光，折射工程全谱',
+        desc: '把 Issue、PR diff、CI 日志、知识库与工作区代码收进同一条上下文，由多 Agent 规划、执行、复核与汇总，输出可溯源的结构化结论与安全草稿。',
+        hero: 'shots/prism/01-workspace.png',
+        overview: [
+            'PRism（原名 DevFlow AI）是我面向 GitHub 研发协作打造的全栈 AI Agent 项目：连接仓库后，系统同步 Issue、Pull Request、PR 文件、Review 评论、Workflow Run 与 Job 日志，再叠加项目知识库和本地工作区代码，形成一条完整的工程上下文 —— 输入是一束需求，输出是 Issue 归类、PR 审查、CI 排障、知识问答与工程周报的全谱结论。',
+            '它有两个刻意的设计取向。其一是「协作必须可见」：后端以 A2A（Agent2Agent）协议对外发布 Agent Card，多 Agent 的规划、执行、复核与汇总不是一次伪装的工具调用，而是前端协作卡里逐条可读的过程，旁边还配了协议帧检查器；其二是「结论必须可溯源」：只有需要语义召回的私域知识进向量库，源码与实时状态始终回到工作区工具和结构化查询，回答带编号引用，并用 RAGAS 五项指标加硬规则把「执行状态」和「质量状态」分开评。'
+        ],
+        role: '独立开发 · Agent 编排 / 全栈',
+        period: '2026.11',
+        status: '已开源 · GitHub 公开',
+        archDesc: [
+            '整体分三层：Next.js 15 前端（工作台、会话、Issue、PR、CI、知识库、评测、工作区等模块）通过 REST + SSE 与 FastAPI 服务层通信；服务层向下接 PostgreSQL + pgvector（结构化数据与向量回退）、Milvus（主向量库）、GitHub REST API 与 OpenAI 兼容的 LLM API。',
+            'Agent 层是系统主体：ChatAgent 用原生工具调用来回推理，按需调度工作区、混合 RAG、Issue、PR、CI、周报、安全与工作流工具；当一次决策横跨多个领域时，改由 WorkflowOrchestrator 走 Planner → 专用 Agent → Observer → Synthesis 的闭环，Observer 负责合并门禁、跨 Agent 冲突与证据缺失的复核。同一套能力同时挂在 /a2a 上，以 JSON-RPC + SSE 对外提供 prism_chat 与 prism_review 两个 Agent，并支持与外部 A2A Agent 互连。'
+        ],
+        stackGroups: [
+            { group: '前端', items: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS'] },
+            { group: '后端', items: ['Python 3.12', 'FastAPI', 'Pydantic', 'SQLAlchemy'] },
+            { group: 'Agent', items: ['LangChain', 'LangGraph', '原生工具调用', 'A2A SDK', 'Skill Runtime'] },
+            { group: '检索 · 数据', items: ['PostgreSQL + pgvector', 'Milvus', 'BM25 关键词检索', '重排'] },
+            { group: '评测 · 交付', items: ['RAGAS 0.4', 'Eval 套件', 'Docker Compose', 'Nginx'] }
+        ],
+        features: [
+            { title: 'Issue 分析', desc: '分类、优先级、复杂度、推荐负责人、重复候选与行动项一次给出，Issues 列表直接变成可处置的队列。' },
+            { title: 'PR 审查', desc: '摘要、关键变更、风险点、检查清单、测试建议与需要重点关注的文件 —— 从「逐行读 diff」变成「先看风险」。' },
+            { title: 'CI 排障', desc: '拉取失败的 Workflow Run 与 Job 日志，归纳失败类型、可能原因、排查步骤和相关上下文。' },
+            { title: 'A2A 多 Agent 协作', desc: '主控 Agent 规划任务图 → 领域 Agent 逐个执行 → Observer 复核 → Synthesis 汇总，前端以协作卡呈现每位成员的真实产出与状态。' },
+            { title: '混合 RAG 与引用', desc: 'ContextAssembler 预检索注入证据，Agent 还能改写 query 连续补查、交叉验证；回答带编号引用，向量侧降级会显式标注而非静默兜底。' },
+            { title: 'RAGAS 评测与回归', desc: '隔离会话里真实运行生产 ChatAgent，五项语义指标 + 硬规则门禁；Judge 异常可仅重试评分，同基线可回归对比，失败 Case 可转 ActionDraft。' }
+        ],
+        effects: [
+            { title: '11 工具原生调用闭环', desc: '工作区、混合 RAG、Issue、PR、CI、周报、安全与工作流工具在同一条推理循环里被按需调用。' },
+            { title: 'A2A 链路真实跑通', desc: 'Agent Card 发现、message/send 与 message/stream（SSE）完整实现，连「路径尾斜杠否则 307」这类协议细节也写进了文档。' },
+            { title: '协作过程可观测', desc: '协作卡 + 实时协议帧检查器；会话刷新后依据持久化的 a2a_group 标记与 agent_events 重建协作卡，样式与运行中一致。' },
+            { title: '评测「执行 / 质量」分离', desc: 'Judge 调用失败或指标缺失只算评测不完整，不会伪装成质量结论；低分才是真正的质量失败。' },
+            { title: '危险操作不落地', desc: 'SafetyAgent 只产出 ActionDraft，写入 GitHub 之前必须经过人工确认。' }
+        ],
+        problems: [
+            { problem: 'Issue / PR / CI 上下文散落在多个页面', solution: '同步仓库数据并接入工作区代码，统一收进一次分析' },
+            { problem: 'PR 审查靠逐行读 diff，风险判断全靠经验', solution: '结构化输出关键变更、风险点、检查清单与重点关注文件' },
+            { problem: 'CI 失败只看到一片日志，定位靠翻', solution: '归纳失败类型、可能原因与排查步骤，附相关上下文' },
+            { problem: '多 Agent 像黑盒，用户只看到最终答案', solution: '协作卡逐条展示规划、执行、复核与汇总，并开放协议帧检查' },
+            { problem: 'RAG 答案「看起来很对」却不可验证', solution: '只向量化非结构化知识 + 编号引用 + 来源降级标注 + RAGAS 五指标硬门禁' }
+        ],
+        difficulties: [
+            { title: 'A2A 协议落到前端', desc: 'SSE 的 status-update → artifact-update → completed 帧序、taskId / contextId 关联，以及刷新后按持久化标记重建协作卡，都需要前后端逐帧对齐。' },
+            { title: '混合 RAG 的边界', desc: '哪些数据该进向量库、哪些必须回权威源核验；重复文件按 SHA-256 跳过，升级后还要按新边界 reindex，否则旧向量和旧 Document 会残留。' },
+            { title: '评测工程化', desc: '在隔离会话里真实运行生产 ChatAgent 与工具集，收集预检索和二次检索证据，再用 RAGAS 0.4 计算指标；异常评分单独重试，不重跑 Agent。' },
+            { title: '单栈收敛', desc: '移除 Vue 双栈统一到 Next.js，并把前端改成同源相对路径，修复非安全上下文下按钮失效的问题。' }
+        ],
+        shots: [
+            { src: 'shots/prism/01-workspace.png', caption: '工作台 · A2A 多 Agent 协作 — 主控规划 → 领域 Agent 执行 → Observer 复核 → 汇总' },
+            { src: 'shots/prism/02-rag-studio.png', caption: 'RAG 工作室 — 混合检索问答，回答带编号引用与证据面板' },
+            { src: 'shots/prism/03-ragas-result.png', caption: 'RAGAS 质量工作台 — 五项指标：Context Precision 87% / Recall 60% / Hard Gate 100%，Judge 异常显式标注为「评测不完整」' },
+            { src: 'shots/prism/04-ragas-diagnosis.png', caption: '逐项诊断 — 失败用例展开实际回答与证据，可仅重试异常评分、生成修复 Issue 草稿，并与历史基线做回归对比' },
+            { src: 'shots/prism/05-login.png', caption: '登录页 — 一束需求光，折射工程全谱' }
+        ],
+        metrics: [
+            { label: 'ChatAgent 工具', value: '11' },
+            { label: 'RAGAS 指标', value: '5 项' },
+            { label: 'A2A Agent', value: '2 个' },
+            { label: '前端模块', value: '14 个' }
+        ],
+        links: [
+            { label: 'GITHUB', type: 'github', url: 'https://github.com/WJLGraph/PRism' }
+        ],
+        docs: [
+            { file: 'readme.md', label: 'README · 项目主文档' },
+            { file: 'system-design.md', label: '系统设计' },
+            { file: 'agent-workflow.md', label: 'Agent 工作流' },
+            { file: 'database-schema.md', label: '数据库设计' },
+            { file: 'security.md', label: '安全设计' },
+            { file: 'openapi.md', label: 'API 文档' },
+            { file: 'refactor-plan.md', label: '重构方案 · React 单栈 + A2A' }
+        ]
+    },
+    {
+        id: 'agent-gauntlet',
+        index: '03',
         featured: false,
         visual: 'v2',
         icon: 'shield',
@@ -164,7 +248,7 @@ export const projects = [{
     },
     {
         id: 'yunnan-fire-map',
-        index: '03',
+        index: '04',
         featured: false,
         visual: 'v3',
         icon: 'map',
@@ -229,7 +313,7 @@ export const projects = [{
     },
     {
         id: 'chongqing-fire',
-        index: '04',
+        index: '05',
         featured: false,
         visual: 'v3',
         icon: 'map',
@@ -291,7 +375,7 @@ export const projects = [{
     },
     {
         id: 'informer',
-        index: '05',
+        index: '06',
         featured: false,
         visual: 'v5',
         icon: 'trend',
@@ -354,7 +438,7 @@ export const projects = [{
     },
     {
         id: 'collaborative-filtering',
-        index: '06',
+        index: '07',
         featured: false,
         visual: 'v6',
         icon: 'graph',
@@ -441,7 +525,7 @@ export const projects = [{
     },
     {
         id: 'mall-miniprogram',
-        index: '07',
+        index: '08',
         featured: false,
         visual: 'v4',
         icon: 'bag',
@@ -509,7 +593,7 @@ export const projects = [{
     },
     {
         id: 'haute-gsap-skills',
-        index: '08',
+        index: '09',
         featured: false,
         visual: 'v2',
         icon: 'spark',
@@ -581,7 +665,7 @@ export const projects = [{
     },
     {
         id: 'universal-ppt-skills',
-        index: '09',
+        index: '10',
         featured: false,
         visual: 'v5',
         icon: 'deck',
@@ -788,5 +872,10 @@ export const timeline = [{
         date: '2026.10 · SKILL FORGE',
         title: 'Universal PPT · 全场景演示技能',
         desc: '提炼 17 个开源 PPT skill 的通用演示文稿生成技能并开源：六类场景路由 × 30+ 风格库 × 8 条渲染路径 × G1–G15 机器门禁（deck_qa.py 单入口，任何 FAIL 即返工）+ 论文原图 sha256 溯源，附 4 模型 × 8 份 deck 全量横评基准与 80 页截图展示，中英双语 README。'
+    },
+    {
+        date: '2026.11 · MULTI-AGENT',
+        title: 'PRism · 研发协作多智能体',
+        desc: '把 GitHub 研发协作做成多 Agent 系统：ChatAgent 以原生工具调用串联工作区、混合 RAG、Issue / PR / CI、周报与安全工具；WorkflowOrchestrator 用 Planner → 领域 Agent → Observer → Synthesis 收敛跨域决策；后端以 A2A 协议发布 Agent Card 并支持 message/stream（SSE），前端用协作卡与协议帧检查器呈现真实的多 Agent 过程，再用 RAGAS 五指标加硬规则量化回答质量 —— 也是第一次把「协议、评测、可溯源」三件事同时做进一个项目。'
     }
 ]
